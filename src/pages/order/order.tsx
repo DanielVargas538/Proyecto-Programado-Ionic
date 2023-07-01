@@ -1,5 +1,5 @@
 import React from 'react';
-
+ 
 const Order: React.FC = () => {
   // Variables y funciones para manejar la orden del cliente
 
