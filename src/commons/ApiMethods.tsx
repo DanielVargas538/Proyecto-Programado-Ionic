@@ -16,25 +16,32 @@ function ApiMethods(url: any) {
         setLoading(true);
         axios.get(url, config)
             .then((response) => { setData(response.data) })
-            .catch((error) => { setError(error) })
+            .catch((err) => { setError(err) })
             .finally(() => { setLoading(false)})
     }, [url])
 
-    const createMethod = (name: any, price: any) => {
+    const postMethod = (name: any, price: any) => {
         const config = {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }
-
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+          },
+        };
+    
         setLoading(true);
-        axios.post(url, { name: name, price: price }, config)
-            .then((response) => { setData(response.data) })
-            .catch((error) => { setError(error) })
-            .finally(() => { setLoading(false) })
-    }
-
+        axios
+          .post(url, { name: name, price: price }, config)
+          .then((response) => {
+            setData(response.data);
+          })
+          .catch((err) => {
+            setError(err);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      };
+    
     const putMethod = (id: any, name: any, price: any) => {
         const config = {
             headers: {
@@ -46,7 +53,7 @@ function ApiMethods(url: any) {
         setLoading(true);
         axios.put(`${url}/${id}`, { name: name, price: price }, config)
             .then((response) => { setData(response.data) })
-            .catch((error) => { setError(error) })
+            .catch((err) => { setError(err) })
             .finally(() => { setLoading(false) })
     }
 
@@ -61,11 +68,11 @@ function ApiMethods(url: any) {
         setLoading(true);
         axios.delete(`${url}/${id}`, config)
             .then((response) => { setData(response.data) })
-            .catch((error) => { setError(error) })
+            .catch((err) => { setError(err) })
             .finally(() => { setLoading(false) })
     }
 
-    return { data, loading , error , createMethod , putMethod, deleteMethod }; 
+    return { data, loading , error , postMethod, putMethod, deleteMethod }; 
 }
 
 export default ApiMethods; 

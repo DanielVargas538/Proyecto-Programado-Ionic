@@ -3,7 +3,6 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import List from './pages/List';
-import Order from './pages/order/Order';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -38,9 +37,6 @@ const App: React.FC = () => {
             </Route>
             <Route path="/pages/List" exact={true}>
               <List />
-            </Route>
-            <Route path="/order" exact={true}>
-              <Order />
             </Route>
           </IonRouterOutlet>
         </IonSplitPane>
