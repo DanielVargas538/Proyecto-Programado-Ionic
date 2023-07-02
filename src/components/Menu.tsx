@@ -30,7 +30,7 @@ const appPages: AppPage[] = [
   },
   {
     title: 'Orden',
-    url: '/pages/Order',
+    url: '/pages/order',
     iosIcon: heartOutline,
     mdIcon: heartSharp
   }
