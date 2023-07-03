@@ -1,0 +1,60 @@
+.Ion__Page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  .Ion__Form {
+    width: 80%;
+    max-width: 350px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .Ion__Form__Title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .Ion__Form__Item {
+    margin-bottom: 15px;
+  }
+  
+  .Ion__Form__Label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .Ion__Form__Input {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .Ion__Form__Button {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .Ion__Form__Button:hover {
+    background-color: #0056b3;
+  }
+  
+  .Ion__Form__Button:active {
+    background-color: #003c80;
+  }
+  
