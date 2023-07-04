@@ -12,7 +12,7 @@ import {
 
 import { useLocation } from 'react-router-dom';
 import { hammer, construct, heartOutline, heartSharp } from 'ionicons/icons';
-import './Menu.css';
+import './Home.css';
 
 interface AppPage {
   url: string;
@@ -38,6 +38,7 @@ const appPages: AppPage[] = [
 
 const Menu: React.FC = () => {
   const location = useLocation();
+
 
   return (
     <IonMenu contentId="main" type="overlay">

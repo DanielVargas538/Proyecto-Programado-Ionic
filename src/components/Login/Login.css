@@ -1,0 +1,52 @@
+.Auth-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color:rgb(228, 213, 221) ;
+}
+
+.Auth-form {
+  width: 300px;
+  padding: 20px;
+  background-color: #77a8a8;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.Auth-form-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #050303;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.d-grid {
+  display:flex;
+
+}
+.btn-primary{
+  padding: 10px;
+}
+
+.btn-secondary{
+ padding: 10px;
+}
+
+.btn_logIn {
+  color: #000000;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+.mt-3 {
+  margin-top: 15px;
+}
+
+
+.register {
+  color: #0d00ff;
+  text-decoration: underline;
+}
