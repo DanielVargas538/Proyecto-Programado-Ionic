@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
+/*
 export async function loginApiRequest(email: string, password: string): Promise<number> {
   const url = `${process.env.REACT_APP_API_URL}/user_logs/params`;
 
@@ -25,7 +25,7 @@ export async function loginApiRequest(email: string, password: string): Promise<
     }
   }
 }
-
+*/
 function ApiMethods(url: any) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -47,25 +47,37 @@ function ApiMethods(url: any) {
 
 
 
-  const postMethod = (name: any, price: any) => {
+
+
+  const getLoginMethod = () => {
+    const config = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }
+    setLoading(true);
+    axios.get(url, config)
+    .then((response) => { setData(response.data) })
+    .catch((err) => { setError(err) })
+    .finally(() => { setLoading(false) })
+  };
+
+
+  const postLoginMethod = (first_name: any, last_name: any, phone: any ,address: any, email:any , password:any , password_confirmation:any ) => {
     const config = {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-      },
-    };
-
-    setLoading(true);
-    axios
-      .post(url, { name: name, price: price }, config)
+      }
+    }
+    axios.post(url, { first_name: first_name, last_name: last_name, phone: phone , address: address, locked: true, email: email, password: password, password_confirmation: password_confirmation}, config)
       .then((response) => {
         setData(response.data);
+        console.log(response.data)
       })
       .catch((err) => {
         setError(err);
-      })
-      .finally(() => {
-        setLoading(false);
       });
   };
 
@@ -99,7 +111,7 @@ function ApiMethods(url: any) {
       .finally(() => { setLoading(false) })
   }
 
-  return { data, loading, error, postMethod, putMethod, deleteMethod };
+  return { data, loading, error, postLoginMethod, putMethod, deleteMethod , getLoginMethod };
 }
 
 export default ApiMethods; 

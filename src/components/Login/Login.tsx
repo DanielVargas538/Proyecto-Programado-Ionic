@@ -1,41 +1,29 @@
 import { IonButton, IonContent, IonInput, IonToast } from '@ionic/react';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { loginApiRequest } from '../../commons/ApiMethods';
+import ApiMethods from '../../commons/ApiMethods';
+import { environment } from '../../environments/environment.dev';
 import './Login.css';
 
-interface LoginProps {
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-}
 
-function Login({ setIsLoggedIn }: LoginProps) {
+const Login: React.FC = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const response = await loginApiRequest(email, password);
-      if (response === 200) {
-        setMessage('Sesión iniciada con éxito');
-        setShowToast(true);
-        setTimeout(() => {
-          setIsLoggedIn(true);
-          localStorage.setItem('isLoggedIn', 'true');
-          history.push('/home');
-        }, 1000);
-      } else {
-        setMessage('Usuario no encontrado');
-        setShowToast(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //const {getLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients/params/${email}/${password}`)
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+      //getLoginMethod();
+        setMessage('Sesión iniciada con éxito');
+        setEmail('');
+        setPassword('');
+        localStorage.setItem('isLoggedIn', 'true');
+        history.push('/home');
+  }
 
   return (
     <IonContent>

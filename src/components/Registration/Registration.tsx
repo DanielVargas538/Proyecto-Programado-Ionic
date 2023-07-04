@@ -1,33 +1,34 @@
 import { IonButton, IonContent, IonInput, IonToast } from '@ionic/react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import ApiMethods from '../../commons/ApiMethods';
+import { environment } from '../../environments/environment.dev';
 
-interface RegistrationProps {
-  setIsRegistered: (isRegistered: boolean) => void;
-}
 
-function Registration({ setIsRegistered }: RegistrationProps) {
-  const [email, setEmail] = useState('');
-  const [fullName, setFullName] = useState('');
+const Registration: React.FC = () => {
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [password_confirmation, setPasswordConfirmation] = useState('');
+
+  const {postLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients`)
+                            
+
   const [message, setMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
   const history = useHistory();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    // Perform registration logic here
-    // You can use your API methods or any other registration implementation
-
-    // Assuming registration is successful
-    setMessage('Registration successful');
-    setShowToast(true);
-    setIsRegistered(true);
-    localStorage.setItem('isRegistered', 'true');
-    history.push('/login');
-  };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    postLoginMethod(first_name, last_name, phone, address, email, password, password_confirmation);
+      setMessage('Registrado Correctamente');
+      setShowToast(true);
+      localStorage.setItem('isRegistered', 'true');
+      history.push('/login');
+}
 
   const handleGoBack = () => {
     history.goBack();
@@ -40,23 +41,33 @@ function Registration({ setIsRegistered }: RegistrationProps) {
           <div className="Auth-form-content">
             <h3 className="Auth-form-title">Registro de cuenta</h3>
             <div className="form-group mt-3">
-              <label>Email</label>
-              <IonInput
-                type="email"
-                className="form-control mt-1"
-                placeholder="Ingrese un email"
-                value={email}
-                onIonChange={(e) => setEmail(e.detail.value!)}
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Nombre Completo</label>
+              <label>Nombre</label>
               <IonInput
                 type="text"
                 className="form-control mt-1"
-                placeholder="Ingrese su nombre completo"
-                value={fullName}
-                onIonChange={(e) => setFullName(e.detail.value!)}
+                placeholder="Ingrese su Nombre"
+                value={first_name}
+                onIonChange={(e) => setFirstName(e.detail.value!)}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Apellidos</label>
+              <IonInput
+                type="text"
+                className="form-control mt-1"
+                placeholder="Ingrese sus Apellidos"
+                value={last_name}
+                onIonChange={(e) => setLastName(e.detail.value!)}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Telefono</label>
+              <IonInput
+                type="text"
+                className="form-control mt-1"
+                placeholder="Ingrese su telefono"
+                value={phone}
+                onIonChange={(e) => setPhone(e.detail.value!)}
               />
             </div>
             <div className="form-group mt-3">
@@ -70,6 +81,16 @@ function Registration({ setIsRegistered }: RegistrationProps) {
               />
             </div>
             <div className="form-group mt-3">
+              <label>Email</label>
+              <IonInput
+                type="email"
+                className="form-control mt-1"
+                placeholder="Ingrese un email"
+                value={email}
+                onIonChange={(e) => setEmail(e.detail.value!)}
+              />
+            </div>
+            <div className="form-group mt-3">
               <label>Contraseña</label>
               <IonInput
                 type="password"
@@ -77,6 +98,16 @@ function Registration({ setIsRegistered }: RegistrationProps) {
                 placeholder="Ingrese una contraseña"
                 value={password}
                 onIonChange={(e) => setPassword(e.detail.value!)}
+              />
+            </div>
+            <div className="form-group mt-3">
+              <label>Confirmar Contraseña</label>
+              <IonInput
+                type="password"
+                className="form-control mt-1"
+                placeholder="Ingrese una contraseña"
+                value={password_confirmation}
+                onIonChange={(e) => setPasswordConfirmation(e.detail.value!)}
               />
             </div>
             <div className="d-grid gap-2 mt-3">
@@ -91,13 +122,6 @@ function Registration({ setIsRegistered }: RegistrationProps) {
           </div>
         </form>
       </div>
-
-      <IonToast
-        isOpen={showToast}
-        message={message}
-        onDidDismiss={() => setShowToast(false)}
-        duration={2000}
-      />
     </IonContent>
   );
 }

@@ -7,27 +7,31 @@ import Home from './components/Home';
 import Registration from './components/Registration/Registration';
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isRegistered, setIsRegistered] = useState(false);
 
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/login">
-            <Login setIsLoggedIn={setIsLoggedIn} />
-          </Route>
-          <Route exact path="/home">
-            {isLoggedIn ? <Home /> : <Redirect to="/login" />}
-          </Route>
-          <Route exact path="/register">
-            {isRegistered ? <Redirect to="/login" /> : <Registration setIsRegistered={setIsRegistered} />}
-          </Route>
-          <Redirect exact path="/" to="/home" />
-        </IonRouterOutlet>
+        {localStorage.getItem('clientLogginIn') ? (
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+          </IonRouterOutlet>
+        ) : (
+          <IonRouterOutlet>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Redirect exact from="/" to="/login" />
+            <Route exact path="/register">
+              <Registration/>
+            </Route>
+          </IonRouterOutlet>
+        )}
       </IonReactRouter>
     </IonApp>
   );
-};
+}
+  
 
 export default App;
