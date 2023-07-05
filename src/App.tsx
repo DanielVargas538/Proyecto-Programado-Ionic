@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import List from './pages/List';
 import Login from './components/Login/Login';
 import Home from './components/Home';
 import Registration from './components/Registration/Registration';
+import DishDetail from './pages/DishDetail'; 
+import { IonSplitPane } from '@ionic/react';
+import Menu from './components/Menu';
+
+import './theme/variables.css';
+
+setupIonicReact();
 
 const App: React.FC = () => {
   
@@ -13,14 +20,18 @@ const App: React.FC = () => {
     <IonApp>
       <IonReactRouter>
         {localStorage.getItem('clientLogginIn') === 'true' ? (
-          <IonRouterOutlet>
-              <Route exact path="/home">
-                <Home />
-              </Route>
-              <Route exact path="/list">
-                <List />
-              </Route>
-          </IonRouterOutlet>
+            <IonSplitPane contentId="main">
+              <Menu />
+              <IonRouterOutlet id="main">
+                <Route path="/" exact={true}>
+                  <Redirect to="/pages/List" />
+                </Route>
+                <Route exact path="/List">
+                  <List />
+                </Route>
+                <Route path="/dishes/:id" component={DishDetail} /> 
+              </IonRouterOutlet>
+          </IonSplitPane>
           ) : (
             <IonRouterOutlet>
               <Route exact path="/login">
