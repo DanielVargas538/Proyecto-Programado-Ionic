@@ -10,8 +10,8 @@ const Login: React.FC = () =>{
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [showToast, setShowToast] = useState(false);
   const history = useHistory();
+  
 
   const {getLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients/params/${email}/${password}`)
 
@@ -20,22 +20,18 @@ const Login: React.FC = () =>{
     try {
       const response = await getLoginMethod();
       if (response.status === 200) {
-        setMessage('Sesión iniciada con éxito');
         setEmail('');
         setPassword('');
-        localStorage.setItem('clientLogginIn', 'true');
+        sessionStorage.setItem('clientLogginIn', 'true');
         history.push('/list');
         window.location.reload();
-      } else if (response.status === 404) {
-        setMessage('Recurso no encontrado');
+      } else {
+        setMessage('Usuario no encontrado, favor de registrarse')
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  
-  
 
   return (
     <IonContent>
@@ -75,16 +71,10 @@ const Login: React.FC = () =>{
                 <Link className='register' to="/register">Regístrate aquí</Link>
               </p>
             </div>
+            <div>{message ? <p>{message}</p> : <br />}</div>
           </div>
         </form>
       </div>
-
-      <IonToast
-        isOpen={showToast}
-        message={message}
-        onDidDismiss={() => setShowToast(false)}
-        duration={2000}
-      />
     </IonContent>
   );
 }

@@ -1,36 +1,45 @@
-import React, { useState } from 'react';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact  } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
-import List from './pages/List';
-import Login from './components/Login/Login';
-import Home from './components/Home';
-import Registration from './components/Registration/Registration';
-import DishDetail from './pages/DishDetail'; 
-import { IonSplitPane } from '@ionic/react';
 import Menu from './components/Menu';
+import List from './pages/List';
+
+import Login from './components/Login/Login';
+import Registration from './components/Registration/Registration';
+
+import '@ionic/react/css/core.css';
+
+import '@ionic/react/css/normalize.css';
+import '@ionic/react/css/structure.css';
+import '@ionic/react/css/typography.css';
+
+import '@ionic/react/css/padding.css';
+import '@ionic/react/css/float-elements.css';
+import '@ionic/react/css/text-alignment.css';
+import '@ionic/react/css/text-transformation.css';
+import '@ionic/react/css/flex-utils.css';
+import '@ionic/react/css/display.css';
 
 import './theme/variables.css';
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  
+
+  const isClientLogginIn = sessionStorage.getItem('clientLogginIn') === 'true'
+
   return (
     <IonApp>
       <IonReactRouter>
-        {localStorage.getItem('clientLogginIn') === 'true' ? (
-            <IonSplitPane contentId="main">
+        { isClientLogginIn ? (
+          <IonSplitPane contentId="main">
               <Menu />
-              <IonRouterOutlet id="main">
-                <Route path="/" exact={true}>
-                  <Redirect to="/pages/List" />
-                </Route>
-                <Route exact path="/List">
+            <IonRouterOutlet id="main">
+                <Route exact path="/list">
                   <List />
                 </Route>
-                <Route path="/dishes/:id" component={DishDetail} /> 
-              </IonRouterOutlet>
+                <Redirect to="/list" />
+            </IonRouterOutlet>
           </IonSplitPane>
           ) : (
             <IonRouterOutlet>
@@ -40,6 +49,7 @@ const App: React.FC = () => {
               <Route exact path="/register">
                 <Registration/>
               </Route>
+              <Redirect to="/login" />
             </IonRouterOutlet>
           )}
       </IonReactRouter>

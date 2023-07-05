@@ -12,7 +12,7 @@ import {
 
 import { useLocation } from 'react-router-dom';
 import { hammer, construct, heartOutline, heartSharp } from 'ionicons/icons';
-import './Home.css';
+import './Menu.css';
 
 interface AppPage {
   url: string;
@@ -24,7 +24,7 @@ interface AppPage {
 const appPages: AppPage[] = [
   {
     title: 'List',
-    url: '/pages/List',
+    url: '/List',
     iosIcon: heartOutline,
     mdIcon: heartSharp
   },

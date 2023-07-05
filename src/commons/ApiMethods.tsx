@@ -1,31 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-/*
-export async function loginApiRequest(email: string, password: string): Promise<number> {
-  const url = `${process.env.REACT_APP_API_URL}/user_logs/params`;
 
-  const config = {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-  };
-
-  try {
-    const response = await axios.get(url, {
-      params: { email, password },
-      ...config
-    });
-    return response.status;
-  } catch (error: any) {
-    if (error && error.message) {
-      throw new Error(error.message);
-    } else {
-      throw new Error('Error desconocido en la solicitud');
-    }
-  }
-}
-*/
 function ApiMethods(url: any) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -45,10 +20,6 @@ function ApiMethods(url: any) {
       .finally(() => { setLoading(false) })
   }, [url])
 
-
-
-
- 
   const getLoginMethod = () => {
     const config = {
       headers: {
@@ -64,11 +35,10 @@ function ApiMethods(url: any) {
       })
       .catch((err) => {
         setLoading(false);
-        throw err;
+        return err;
       });
   };
   
-
   const postLoginMethod = async (first_name: any, last_name: any, phone: any ,address: any, email:any , password: any , password_confirmation: any ) => {
     const config = {
       headers: {
@@ -76,14 +46,14 @@ function ApiMethods(url: any) {
         "Content-Type": "application/json",
       }
     }
-    axios.post(url, { first_name: first_name, last_name: last_name, phone: phone , address: address, email: email, password: password, password_confirmation: password_confirmation}, config)
+    return axios.post(url, { first_name: first_name, last_name: last_name, phone: phone , address: address, email: email, password: password, password_confirmation: password_confirmation}, config)
       .then((response) => {
         setData(response.data);
-        console.log(response.data)
-        console.log(response.data)
+        return response;
       })
       .catch((err) => {
         setError(err);
+        return err
       });
   };
 

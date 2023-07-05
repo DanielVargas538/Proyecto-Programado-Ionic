@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ApiMethods from '../../commons/ApiMethods';
 import { environment } from '../../environments/environment.dev';
-import Swal from 'sweetalert2';
 
 
 const Registration: React.FC = () => {
@@ -19,26 +18,26 @@ const Registration: React.FC = () => {
 
   const {postLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients`)
                             
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-      postLoginMethod(first_name, last_name, phone, address, email, password, password_confirmation);
-          //setMessage('Registrado Correctamente');
-          showSuccessAlert();
+      try{
+        const response = await postLoginMethod(first_name, last_name, phone, address, email, password, password_confirmation);
+        if (response.status === 201) {
+          setMessage('Usuario Registrado');
+          history.push('/login');
+          window.location.reload();
+        } else {
+          setMessage('Verifica los datos');
+        }
+      } catch (error) {
+        console.log(error);
+      }
   }
 
   const handleGoBack = () => {
     history.goBack();
   };
 
-  const showSuccessAlert = () => {
-    Swal.fire({
-      title: 'Creado correctamente',
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-    }).then(() => {
-      history.push('/login');
-    });
-  }
 
   return (
     <IonContent>
