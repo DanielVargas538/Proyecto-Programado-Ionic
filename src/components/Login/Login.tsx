@@ -13,17 +13,29 @@ const Login: React.FC = () =>{
   const [showToast, setShowToast] = useState(false);
   const history = useHistory();
 
-  //const {getLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients/params/${email}/${password}`)
+  const {getLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients/params/${email}/${password}`)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-      //getLoginMethod();
+    try {
+      const response = await getLoginMethod();
+      if (response.status === 200) {
         setMessage('Sesión iniciada con éxito');
         setEmail('');
         setPassword('');
-        localStorage.setItem('isLoggedIn', 'true');
-        history.push('/home');
-  }
+        localStorage.setItem('clientLogginIn', 'true');
+        history.push('/list');
+        window.location.reload();
+      } else if (response.status === 404) {
+        setMessage('Recurso no encontrado');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  
+  
 
   return (
     <IonContent>

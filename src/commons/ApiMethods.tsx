@@ -48,32 +48,38 @@ function ApiMethods(url: any) {
 
 
 
-
+ 
   const getLoginMethod = () => {
     const config = {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
-    }
+    };
     setLoading(true);
-    axios.get(url, config)
-    .then((response) => { setData(response.data) })
-    .catch((err) => { setError(err) })
-    .finally(() => { setLoading(false) })
+    return axios.get(url, config)
+      .then((response) => {
+        setLoading(false);
+        return response;
+      })
+      .catch((err) => {
+        setLoading(false);
+        throw err;
+      });
   };
+  
 
-
-  const postLoginMethod = (first_name: any, last_name: any, phone: any ,address: any, email:any , password:any , password_confirmation:any ) => {
+  const postLoginMethod = async (first_name: any, last_name: any, phone: any ,address: any, email:any , password: any , password_confirmation: any ) => {
     const config = {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
       }
     }
-    axios.post(url, { first_name: first_name, last_name: last_name, phone: phone , address: address, locked: true, email: email, password: password, password_confirmation: password_confirmation}, config)
+    axios.post(url, { first_name: first_name, last_name: last_name, phone: phone , address: address, email: email, password: password, password_confirmation: password_confirmation}, config)
       .then((response) => {
         setData(response.data);
+        console.log(response.data)
         console.log(response.data)
       })
       .catch((err) => {

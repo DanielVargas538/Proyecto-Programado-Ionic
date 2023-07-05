@@ -8,7 +8,10 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,IonImg
+  IonCardSubtitle,
+  IonImg,
+  IonButton
+
 } from "@ionic/react";
 
 import ApiMethods from '../commons/ApiMethods';
@@ -29,6 +32,7 @@ const List: React.FC = () => {
             <IonTitle  className='Ion__Title'>
               Lista de Platos
             </IonTitle>
+            <IonButton href='/login' onClick={() => localStorage.setItem('clientLogginIn', 'false')}>Cerrar Sesion</IonButton>
           </IonToolbar>
         </IonHeader>
         <IonContent>

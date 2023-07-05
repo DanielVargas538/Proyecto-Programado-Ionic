@@ -1,11 +1,10 @@
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import Menu from './Menu';
+//import Menu from './Menu';
 
 const Home: React.FC = () => {
   return (
     <IonPage>
-      <Menu />
       <IonContent>
         <IonHeader>
           <IonToolbar>
