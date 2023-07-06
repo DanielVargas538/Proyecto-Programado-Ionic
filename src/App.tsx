@@ -3,6 +3,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import List from './pages/List';
+import Orders from './pages/orders/order'
 
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
@@ -37,6 +38,9 @@ const App: React.FC = () => {
             <IonRouterOutlet id="main">
                 <Route exact path="/list">
                   <List />
+                </Route>
+                <Route exact path="/orders">
+                  <Orders />
                 </Route>
                 <Redirect to="/list" />
             </IonRouterOutlet>

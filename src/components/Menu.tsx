@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 
 import { useLocation } from 'react-router-dom';
-import { hammer, construct, heartOutline, heartSharp } from 'ionicons/icons';
+import { pizza , bicycle } from 'ionicons/icons';
 import './Menu.css';
 
 interface AppPage {
@@ -23,22 +23,21 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: 'List',
-    url: '/List',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
+    title: 'Menu',
+    url: '/list',
+    iosIcon: pizza,
+    mdIcon: pizza
   },
   {
-    title: 'Orden',
-    url: '/pages/order',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
+    title: 'Ordenes',
+    url: '/orders',
+    iosIcon: bicycle,
+    mdIcon: bicycle
   }
 ];
 
 const Menu: React.FC = () => {
   const location = useLocation();
-
 
   return (
     <IonMenu contentId="main" type="overlay">

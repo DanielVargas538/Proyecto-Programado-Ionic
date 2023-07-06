@@ -57,37 +57,43 @@ function ApiMethods(url: any) {
       });
   };
 
-  const putMethod = (id: any, name: any, price: any) => {
+
+  const postOrderMethod = async (client_id: any, dish_id:any, quantity:any) => {
     const config = {
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        "Accept": "application/json",
+        "Content-Type": "application/json",
       }
+    }
+    return axios.post(url, { client_id: client_id, dish_id:dish_id, quantity: quantity}, config)
+      .then((response) => {
+        setData(response.data);
+        return response;
+      })
+      .catch((err) => {
+        setError(err);
+        return err
+      });
+  };
+
+  const putOrderMethod = (id: any,) => {
+    const config = {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
     }
 
     setLoading(true);
-    axios.put(`${url}/${id}`, { name: name, price: price }, config)
-      .then((response) => { setData(response.data) })
-      .catch((err) => { setError(err) })
-      .finally(() => { setLoading(false) })
+    axios.put(`${url}/${id}`, {state: 3}, config)
+        .then((response) => { setData(response.data) })
+        .catch((err) => { setError(err) })
+        .finally(() => { setLoading(false) })
   }
 
-  const deleteMethod = (id: any) => {
-    const config = {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }
 
-    setLoading(true);
-    axios.delete(`${url}/${id}`, config)
-      .then((response) => { setData(response.data) })
-      .catch((err) => { setError(err) })
-      .finally(() => { setLoading(false) })
-  }
 
-  return { data, loading, error, postLoginMethod, putMethod, deleteMethod , getLoginMethod };
+  return { data, loading, error, postLoginMethod, getLoginMethod, postOrderMethod, putOrderMethod };
 }
 
 export default ApiMethods; 

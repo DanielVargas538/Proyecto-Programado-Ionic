@@ -1,0 +1,51 @@
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .Ion__logout {
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 30px;
+  }
+  
+  .Ion__Title {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    font-family: cursive;
+  }
+  
+.Ion__Cancel{
+    margin-left: auto;
+    margin-right: auto;
+}
+    
+.Ion-Card-Title {
+    text-align: center;
+}
+
+.Ion-Card-SubTitle{
+    text-align: center;
+}
+
+.Ion-Card-Content{
+    text-align: center;
+}
+
+.Ion-Card-Img {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Ion_Grid{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Ion-Label{
+    margin-left: auto;
+    margin-right: auto;
+}
