@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import List from './pages/List';
 import Orders from './pages/orders/order'
+import Client from './pages/client/client'
 
 import Login from './components/Login/Login';
 import Registration from './components/Registration/Registration';
@@ -41,6 +42,9 @@ const App: React.FC = () => {
                 </Route>
                 <Route exact path="/orders">
                   <Orders />
+                </Route>
+                <Route exact path="/client">
+                  <Client />
                 </Route>
                 <Redirect to="/list" />
             </IonRouterOutlet>

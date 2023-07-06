@@ -1,15 +1,28 @@
-import { IonButton, IonContent, IonInput } from '@ionic/react';
+import { 
+  IonButton, 
+  IonContent, 
+  IonInput,
+  IonLabel,
+  IonTitle,
+  IonItem,
+  IonText,
+  IonPage
+} from '@ionic/react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import ApiMethods from '../../commons/ApiMethods';
 import { environment } from '../../environments/environment.dev';
+import './Registration.css'
 
 
 const Registration: React.FC = () => {
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
+  const [province, setProvince] = useState('');
+  const [canton, setCanton] = useState('');
+  const [district, setDistrict] = useState('');
+  const [street, setStreet] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password_confirmation, setPasswordConfirmation] = useState('');
@@ -21,7 +34,7 @@ const Registration: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
       try{
-        const response = await postLoginMethod(first_name, last_name, phone, address, email, password, password_confirmation);
+        const response = await postLoginMethod(first_name, last_name, phone, province, canton, district , street, email, password, password_confirmation);
         if (response.status === 201) {
           setMessage('Usuario Registrado');
           history.push('/login');
@@ -40,101 +53,122 @@ const Registration: React.FC = () => {
 
 
   return (
-    <IonContent>
-      <div className="Auth-form-container">
-        <form className="Auth-form" onSubmit={handleSubmit}>
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Registro de cuenta</h3>
-            <div className="form-group mt-3">
-              <label>Nombre</label>
-              <IonInput
-                type="text"
-                className="form-control mt-1"
-                placeholder="Ingrese su Nombre"
-                value={first_name}
-                onIonChange={(e) => setFirstName(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Apellidos</label>
-              <IonInput
-                type="text"
-                className="form-control mt-1"
-                placeholder="Ingrese sus Apellidos"
-                value={last_name}
-                onIonChange={(e) => setLastName(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Telefono</label>
-              <IonInput
-                type="text"
-                className="form-control mt-1"
-                placeholder="Ingrese su telefono"
-                value={phone}
-                onIonChange={(e) => setPhone(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Dirección Física</label>
-              <IonInput
-                type="text"
-                className="form-control mt-1"
-                placeholder="Ingrese una dirección"
-                value={address}
-                onIonChange={(e) => setAddress(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Email</label>
-              <IonInput
-                type="email"
-                className="form-control mt-1"
-                placeholder="Ingrese un email"
-                value={email}
-                onIonChange={(e) => setEmail(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Contraseña</label>
-              <IonInput
-                type="password"
-                className="form-control mt-1"
-                placeholder="Ingrese una contraseña"
-                value={password}
-                onIonChange={(e) => setPassword(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="form-group mt-3">
-              <label>Confirmar Contraseña</label>
-              <IonInput
-                type="password"
-                className="form-control mt-1"
-                placeholder="Ingrese una contraseña"
-                value={password_confirmation}
-                onIonChange={(e) => setPasswordConfirmation(e.detail.value!)}
-                required  
-              />
-            </div>
-            <div className="d-grid gap-2 mt-3">
-              <IonButton type="submit" className="btn-primary">
-                Registrarse
-              </IonButton>
-              <IonButton onClick={handleGoBack} className="btn-secondary">
-                Atrás
-              </IonButton>
-            </div>
-            <div>{message ? <p>{message}</p> : <br />}</div>
-          </div>
-        </form>
-      </div>
-    </IonContent>
+    <IonPage>
+      <IonContent class="ion-text-center ion-padding">
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '30px' }}>
+          <form className="Auth-form Ion-form" onSubmit={handleSubmit}>
+              <IonTitle className="Auth-form-title title">Registro de cuenta</IonTitle>
+                <IonItem>
+                    <IonLabel position='floating'>Nombre</IonLabel>
+                    <IonInput
+                      type="text"
+                      placeholder="Ingrese su Nombre"
+                      value={first_name}
+                      onIonChange={(e) => setFirstName(e.detail.value!)}
+                      required  
+                    />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Apellidos</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Ingrese sus Apellidos"
+                    value={last_name}
+                    onIonChange={(e) => setLastName(e.detail.value!)}
+                    required  
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Telefono</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Ingrese su telefono"
+                    value={phone}
+                    onIonChange={(e) => setPhone(e.detail.value!)}
+                    required  
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Provincia</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Ingrese la provincia de residencia"
+                    value={province}
+                    onIonChange={(e) => setProvince(e.detail.value!)}
+                    required  
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Cantón</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Ingrese la provincia de residencia"
+                    value={canton}
+                    onIonChange={(e) => setCanton(e.detail.value!)}
+                    required  
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Distrito</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Ingrese la provincia de residencia"
+                    value={district}
+                    onIonChange={(e) => setDistrict(e.detail.value!)}
+                    required  
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Calle</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Ingrese la provincia de residencia"
+                    value={street}
+                    onIonChange={(e) => setStreet(e.detail.value!)}
+                    required  
+                  />
+                </IonItem>
+                <IonItem>
+                  <IonLabel position='floating'>Email</IonLabel>
+                  <IonInput
+                    type="email"
+                    placeholder="Ingrese un email"
+                    value={email}
+                    onIonChange={(e) => setEmail(e.detail.value!)}
+                    required  
+                  />
+              </IonItem>
+              <IonItem>
+                <IonLabel position='floating'>Contraseña</IonLabel>
+                <IonInput
+                  type="password"
+                  placeholder="Ingrese una contraseña"
+                  value={password}
+                  onIonChange={(e) => setPassword(e.detail.value!)}
+                  required  
+                />
+              </IonItem>
+              <IonItem>
+                <IonLabel position='floating'>Confirmar Contraseña</IonLabel>
+                <IonInput
+                  type="password"
+                  placeholder="Ingrese una contraseña"
+                  value={password_confirmation}
+                  onIonChange={(e) => setPasswordConfirmation(e.detail.value!)}
+                  required  
+                />
+              </IonItem>
+                <IonButton type="submit" className="btn-primary">
+                  Registrarse
+                </IonButton>
+                <IonButton onClick={handleGoBack} className="btn-secondary">
+                  Atrás
+                </IonButton>
+              <IonText>{message ? <p>{message}</p> : <br />}</IonText>
+          </form>
+        </div>
+      </IonContent>
+    </IonPage>
   );
 }
 

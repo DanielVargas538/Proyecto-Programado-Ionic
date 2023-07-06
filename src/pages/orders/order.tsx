@@ -48,10 +48,25 @@ const Order: React.FC = () => {
   };
 
   if (!data) {
-    return <h1>Cargando...</h1>;
-  } else {
-    console.log(data)
     return (
+      <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <div className="button-container">
+            <IonTitle className="Ion__Title">Ordenes</IonTitle>
+            <IonButton className="Ion__logout" onClick={() => { sessionStorage.setItem('clientLogginIn', 'false'); window.location.href = "/login"; }}>
+              Cerrar Sesión
+            </IonButton>
+          </div>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent>
+        <h1>Cargando...</h1>
+      </IonContent>
+      </IonPage>
+    );
+  }else {
+    return(
       <IonPage>
         <IonHeader>
           <IonToolbar>

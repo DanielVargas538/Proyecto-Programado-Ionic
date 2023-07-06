@@ -2,9 +2,12 @@ import {
   IonButton, 
   IonContent, 
   IonInput, 
-  IonList,
+  IonText,
   IonItem,
-  IonLabel } from '@ionic/react';
+  IonLabel,
+  IonTitle,
+  IonPage
+} from '@ionic/react';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import ApiMethods from '../../commons/ApiMethods';
@@ -40,45 +43,44 @@ const Login: React.FC = () =>{
   };
 
   return (
-    <IonContent>
-      <div className="Auth-form-container">
-        <form className="Auth-form" onSubmit={handleSubmit}>
-          <div className="Auth-form-content">
-            <h3 className="Auth-form-title">Iniciar Sesión</h3>
-            <IonList>
-              <IonItem>
-                <IonLabel position="floating">Correo Electrónico</IonLabel>
+  <IonPage>
+    <IonContent class="ion-text-center ion-padding">
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '30px' }}>
+        <form className="Auth-form Ion-form" onSubmit={handleSubmit}>
+          <IonTitle className="Auth-form-title title">Iniciar Sesion</IonTitle>
+            <IonItem>
+                <IonLabel position='floating'>Email</IonLabel>
                 <IonInput
-                  type="email"
+                  type="text"
+                  placeholder="Ingrese su Nombre"
                   value={email}
                   onIonChange={(e) => setEmail(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-              <IonItem>
-                <IonLabel position="floating">Contraseña</IonLabel>
-                <IonInput
-                  type="password"
-                  value={password}
-                  onIonChange={(e) => setPassword(e.detail.value!)}
-                ></IonInput>
-              </IonItem>
-            </IonList>
-            <div className="d-grid gap-2 mt-3">
+                  required  
+                />
+            </IonItem>
+          <IonItem>
+            <IonLabel position="floating">Contraseña</IonLabel>
+            <IonInput
+              type="password"
+              value={password}
+              onIonChange={(e) => setPassword(e.detail.value!)}
+              required
+            ></IonInput>
+          </IonItem>
               <IonButton expand="block" type="submit" className="btn_logIn">
                 Ingresar
               </IonButton>
-            </div>
             <div>
               <p>
                 ¿No tienes una cuenta?{' '}
                 <Link className='register' to="/register">Regístrate aquí</Link>
               </p>
             </div>
-            {message && <p>{message}</p>}
-          </div>
+            <IonText>{message && <p>{message}</p>}</IonText>
         </form>
       </div>
     </IonContent>
+  </IonPage>
   );
   
 }

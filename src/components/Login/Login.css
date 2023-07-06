@@ -22,31 +22,7 @@
   font-weight: bold;
 }
 
-.d-grid {
-  display:flex;
-
-}
-.btn-primary{
-  padding: 10px;
-}
-
-.btn-secondary{
- padding: 10px;
-}
-
-.btn_logIn {
-  color: #000000;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 3px;
-}
-
-.mt-3 {
-  margin-top: 15px;
-}
-
-
 .register {
-  color: #0d00ff;
+  color: #ececec;
   text-decoration: underline;
 }
