@@ -11,7 +11,8 @@ import {
   IonImg,
   IonLabel,
   IonRow,
-  IonGrid
+  IonGrid,
+  IonAlert
 } from '@ionic/react';
 import './order.css';
 import ApiMethods from '../../commons/ApiMethods';
@@ -22,6 +23,9 @@ import ListData from '../commons/list/listData';
 const Order: React.FC = () => {
   const [orderId, SetOrderId]= useState(0);
   const [edit, SetEdit] = useState(false)
+  const [showAlert, setShowAlert] = useState(false);
+  const [header, setHeader] = useState('');
+  const [message, setMessage] = useState('');
 
   const { data } = ApiMethods(`${environment.apiEndpoint}/orders/params/${sessionStorage.getItem('clientIdLoggin')}`);
 
@@ -29,8 +33,15 @@ const Order: React.FC = () => {
 
   const handleSubmit = (order_id: number) => {
     putOrderStateMethod(order_id);
-    window.location.reload();
+    setHeader('Exito')
+    setMessage('Se ha actualizado la orden')
+    setShowAlert(true);
   }
+
+  const handleAlertOk = () => {
+    setShowAlert(false);
+    window.location.reload();
+  };
 
   const getStateLabel = (state:any) => {
     let label = "";
@@ -98,6 +109,18 @@ const Order: React.FC = () => {
                           <IonButton className="Ion__Cancel" onClick={() => { handleSubmit(order.id) }}>
                             Cancelar Pedido
                           </IonButton>
+                          <IonAlert
+                            isOpen={showAlert}
+                            onDidDismiss={() => setShowAlert(false)}
+                            header={header}
+                            message={message}
+                            buttons={[
+                              {
+                                text: 'OK',
+                                handler: handleAlertOk
+                              }
+                            ]}
+                          />
                           </IonRow>
                         )}
                     </IonGrid>

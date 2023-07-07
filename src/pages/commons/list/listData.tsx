@@ -89,7 +89,7 @@ const ListData: React.FC <{ Title: string, Edit: boolean, ID: number, SetEdit :a
   };
 
   const sendOrderPut = (dishId: number, quantity: number) => {
-    putOrderMethod(sessionStorage.getItem('OrderPut') ,dishId, quantity)
+    putOrderMethod(props.ID ,dishId, quantity)
       .then(() => {
         setHeader('Exito')
         setMessage('Se ha actualizado la nueva orden')

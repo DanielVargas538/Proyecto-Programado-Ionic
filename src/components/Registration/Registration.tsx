@@ -6,7 +6,8 @@ import {
   IonTitle,
   IonItem,
   IonText,
-  IonPage
+  IonPage,
+  IonAlert
 } from '@ionic/react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -27,7 +28,9 @@ const Registration: React.FC = () => {
   const [password, setPassword] = useState('');
   const [password_confirmation, setPasswordConfirmation] = useState('');
   const [message, setMessage] = useState('');
+  const [header, setHeader] = useState('');
   const history = useHistory();
+  const [showAlert, setShowAlert] = useState(false);
 
   const {postLoginMethod} = ApiMethods(`${environment.apiEndpoint}/clients`)
                             
@@ -36,9 +39,9 @@ const Registration: React.FC = () => {
       try{
         const response = await postLoginMethod(first_name, last_name, phone, province, canton, district , street, email, password, password_confirmation);
         if (response.status === 201) {
-          setMessage('Usuario Registrado');
-          history.push('/login');
-          window.location.reload();
+          setHeader('Exito')
+          setMessage('Se ha registrado el usuario')
+          setShowAlert(true);    
         } else {
           setMessage('Verifica los datos');
         }
@@ -51,6 +54,10 @@ const Registration: React.FC = () => {
     history.goBack();
   };
 
+  const handleAlertOk = () => {
+    setShowAlert(false);
+    history.push('/login');
+  };
 
   return (
     <IonPage>
@@ -164,6 +171,18 @@ const Registration: React.FC = () => {
                 <IonButton onClick={handleGoBack} className="btn-secondary">
                   Atrás
                 </IonButton>
+                <IonAlert
+                  isOpen={showAlert}
+                  onDidDismiss={() => setShowAlert(false)}
+                  header={header}
+                  message={message}
+                  buttons={[
+                    {
+                      text: 'OK',
+                      handler: handleAlertOk
+                    }
+                  ]}
+                />
               <IonText>{message ? <p>{message}</p> : <br />}</IonText>
           </form>
         </div>

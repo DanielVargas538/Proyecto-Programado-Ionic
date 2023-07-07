@@ -79,19 +79,19 @@ function ApiMethods(url: any) {
             "Content-Type": "application/json"
         }
     }
-    axios.put(`${url}/${id}`, {state: 3}, config)
+    axios.put(`${url}/${id}`, {state: 3, module:1}, config)
         .then((response) => { return response.data })
         .catch((err) => { setError(err) })
   }
 
-  const putOrderMethod = async (id: any, dish_id: any, quantity: any,) => {
+  const putOrderMethod = async (id: any, dish_id: any, quantity: any) => {
     const config = {
         headers: {
             "Accept": "application/json",
             "Content-Type": "application/json"
         }
     }
-    axios.put(`${url}/${id}`, {state: 0, dish_id: dish_id, quantity: quantity }, config)
+    axios.put(`${url}/${id}`, {dish_id: dish_id, quantity: quantity}, config)
         .then((response) => { return response.data })
         .catch((err) => { setError(err) })
   }
