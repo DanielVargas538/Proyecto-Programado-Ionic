@@ -2,6 +2,12 @@
     display: flex;
     justify-content: flex-end;
   }
+
+  .Ion__ReturnEdit{
+    margin-left: 20px;
+    margin-right: auto;
+    margin-top: 30px;
+  }
   
   .Ion__logout {
     margin-left: auto;
