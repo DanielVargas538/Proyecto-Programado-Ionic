@@ -8,7 +8,8 @@ import {
     IonItem,
     IonHeader,
     IonToolbar,
-    IonPage
+    IonPage,
+    IonAlert
 } from '@ionic/react';
 import './client.css';
 import ApiMethods from '../../commons/ApiMethods';
@@ -28,6 +29,9 @@ const Client: React.FC = () => {
     const [password, setPassword] = useState('xxxxx');
     const [password_confirmation, setPasswordConfirmation] = useState('');
     const [showForm, setShowForm] = useState(false)
+    const [showAlert, setShowAlert] = useState(false);
+    const [header, setHeader] = useState('');
+    const [message, setMessage] = useState('');
 
     const { data } = ApiMethods(`${environment.apiEndpoint}/clients/${sessionStorage.getItem('clientIdLoggin')}`);
 
@@ -49,8 +53,15 @@ const Client: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         putClientMethod(sessionStorage.getItem('clientIdLoggin'), first_name, last_name, phone, province, canton, district, street, email, password, password_confirmation);
-        window.location.reload();
+        setHeader('Exito')
+        setMessage('Se actualizaron los datos')
+        setShowAlert(true);
     }
+
+    const handleAlertOk = () => {
+        setShowAlert(false);
+        window.location.reload();
+    };
 
   if(!showForm){
   return(
@@ -203,6 +214,18 @@ const Client: React.FC = () => {
                 <IonButton onClick={() => setShowForm(false)} className="btn-primary">
                     Atras
                 </IonButton>
+                <IonAlert
+                    isOpen={showAlert}
+                    onDidDismiss={() => setShowAlert(false)}
+                    header={header}
+                    message={message}
+                    buttons={[
+                        {
+                        text: 'OK',
+                        handler: handleAlertOk
+                        }
+                    ]}
+                />
             </form>
         </div>
         </IonContent>
