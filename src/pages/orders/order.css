@@ -1,22 +1,9 @@
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .Ion__logout {
+
+.Ion__Edit {
     margin-left: auto;
-    margin-right: 20px;
-    margin-top: 30px;
+    margin-right: auto;
   }
-  
-  .Ion__Title {
-    text-align: center;
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 40px;
-    font-family: cursive;
-  }
-  
+
 .Ion__Cancel{
     margin-left: auto;
     margin-right: auto;

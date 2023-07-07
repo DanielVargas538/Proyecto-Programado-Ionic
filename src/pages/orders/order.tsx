@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
   IonCard,
   IonCardHeader,
@@ -19,15 +16,19 @@ import {
 import './order.css';
 import ApiMethods from '../../commons/ApiMethods';
 import { environment } from '../../environments/environment.dev';
- 
+import Header from '../commons/header/header' 
+import ListData from '../commons/list/listData';
+
 const Order: React.FC = () => {
+  const [orderId, SetOrderId]= useState(0);
+  const [edit, SetEdit] = useState(false)
 
   const { data } = ApiMethods(`${environment.apiEndpoint}/orders/params/${sessionStorage.getItem('clientIdLoggin')}`);
 
-  const { putOrderMethod } = ApiMethods(`${environment.apiEndpoint}/orders`);
+  const { putOrderStateMethod } = ApiMethods(`${environment.apiEndpoint}/orders`);
 
   const handleSubmit = (order_id: number) => {
-    putOrderMethod(order_id);
+    putOrderStateMethod(order_id);
     window.location.reload();
   }
 
@@ -47,79 +48,70 @@ const Order: React.FC = () => {
     return <IonLabel>Estado Actual: {label}</IonLabel>;
   };
 
-  if (!data) {
+  if (data === null || data.length === 0) {
     return (
       <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <div className="button-container">
-            <IonTitle className="Ion__Title">Ordenes</IonTitle>
-            <IonButton className="Ion__logout" onClick={() => { sessionStorage.setItem('clientLogginIn', 'false'); window.location.href = "/login"; }}>
-              Cerrar Sesión
-            </IonButton>
-          </div>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent>
-        <h1>Cargando...</h1>
-      </IonContent>
-      </IonPage>
-    );
-  }else {
-    return(
-      <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <div className="button-container">
-              <IonTitle className="Ion__Title">Ordenes</IonTitle>
-              <IonButton className="Ion__logout" onClick={() => { sessionStorage.setItem('clientLogginIn', 'false'); window.location.href = "/login"; }}>
-                Cerrar Sesión
-              </IonButton>
-            </div>
-          </IonToolbar>
-        </IonHeader>
+        <Header Title='Ordenes'/>
         <IonContent>
-          {data?.map((order: any) => (
-            <IonCard className='Ion-Card'>
-              <IonCardHeader>
-                <IonCardTitle className='Ion-Card-Title'>Pedido: {order.dish.name}</IonCardTitle>
-                <IonCardSubtitle className='Ion-Card-SubTitle'>Orden: {order.id}</IonCardSubtitle>
-              </IonCardHeader>
-                <IonCardContent className='Ion-Card-Content'>
-                  <IonImg src={order.dish.photo_url} alt="Imagen del plato" className="Ion-Card-Img" />
-                  <IonGrid class='Ion_Grid'>
-                    <IonRow >
-                      <IonLabel class='Ion-Label'>Fecha del pedido: {new Date(order.date).toLocaleString()}</IonLabel>
-                    </IonRow>
-                    <IonRow>
-                      <IonLabel class='Ion-Label'>Descripción: {order.dish.description}</IonLabel>
-                    </IonRow>
-                    <IonRow>
-                      <IonLabel class='Ion-Label'>Cantidad: {order.quantity}</IonLabel>
-                    </IonRow>
-                    <IonRow>
-                      <IonLabel class='Ion-Label'>Precio por unidad: {order.dish.price}</IonLabel>
-                    </IonRow>
-                    <IonRow>
-                      <IonLabel class='Ion-Label'>Precio Total: {order.dish.price*order.quantity}</IonLabel>
-                    </IonRow>
-                    <IonRow>
-                      <IonLabel class='Ion-Label'> {getStateLabel(order.state)}</IonLabel>
-                    </IonRow>
-                    <IonRow>
-                      {(order.state !== "cancelled" && order.state !== "delivered") && (
-                        <IonButton className="Ion__Cancel" onClick={() => { handleSubmit(order.id) }}>
-                          Cancelar Pedido
-                        </IonButton>
-                      )}
-                  </IonRow>
-                  </IonGrid>
-                </IonCardContent>
-            </IonCard>
-          ))}
+          <h1>Cargando...</h1>
         </IonContent>
       </IonPage>
     );
+  }else {
+    if(!edit){
+      return(
+        <IonPage>
+          <Header Title='Ordenes'/>
+          <IonContent>
+            {data?.map((order: any) => (
+              <IonCard className='Ion-Card'>
+                <IonCardHeader>
+                  <IonCardTitle className='Ion-Card-Title'>Pedido: {order.dish.name}</IonCardTitle>
+                  <IonCardSubtitle className='Ion-Card-SubTitle'>Orden: {order.id}</IonCardSubtitle>
+                </IonCardHeader>
+                  <IonCardContent className='Ion-Card-Content'>
+                    <IonImg src={order.dish.photo_url} alt="Imagen del plato" className="Ion-Card-Img" />
+                    <IonGrid class='Ion_Grid'>
+                      <IonRow >
+                        <IonLabel class='Ion-Label'>Fecha del pedido: {new Date(order.date).toLocaleString()}</IonLabel>
+                      </IonRow>
+                      <IonRow>
+                        <IonLabel class='Ion-Label'>Descripción: {order.dish.description}</IonLabel>
+                      </IonRow>
+                      <IonRow>
+                        <IonLabel class='Ion-Label'>Cantidad: {order.quantity}</IonLabel>
+                      </IonRow>
+                      <IonRow>
+                        <IonLabel class='Ion-Label'>Precio por unidad: {order.dish.price}</IonLabel>
+                      </IonRow>
+                      <IonRow>
+                        <IonLabel class='Ion-Label'>Precio Total: {order.dish.price*order.quantity}</IonLabel>
+                      </IonRow>
+                      <IonRow>
+                        <IonLabel class='Ion-Label'> {getStateLabel(order.state)}</IonLabel>
+                      </IonRow>
+                        {(order.state !== "cancelled" && order.state !== "delivered") && (
+                         <IonRow>
+                         <IonButton className="Ion__Edit" onClick={() => { SetEdit(true); SetOrderId(order.id)}}>
+                              Actualizar Pedido
+                          </IonButton>
+                          <IonButton className="Ion__Cancel" onClick={() => { handleSubmit(order.id) }}>
+                            Cancelar Pedido
+                          </IonButton>
+                          </IonRow>
+                        )}
+                    </IonGrid>
+                  </IonCardContent>
+              </IonCard>
+            ))}
+          </IonContent>
+        </IonPage>
+      );
+    } else{
+      return(
+        <ListData Title='Ordenes' Edit={true} ID={orderId} SetEdit={SetEdit}/>
+      );
+    }
   }
 };
 

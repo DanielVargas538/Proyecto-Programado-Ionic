@@ -13,6 +13,8 @@ import {
 import './client.css';
 import ApiMethods from '../../commons/ApiMethods';
 import { environment } from '../../environments/environment.dev';
+import Header from '../commons/header/header' 
+
  
 const Client: React.FC = () => {
     const [first_name, setFirstName] = useState('');
@@ -53,16 +55,7 @@ const Client: React.FC = () => {
   if(!showForm){
   return(
     <IonPage>
-        <IonHeader>
-        <IonToolbar>
-            <div className="button-container">
-            <IonTitle className="Ion__Title">Perfil</IonTitle>
-            <IonButton className="Ion__logout" onClick={() => { sessionStorage.setItem('clientLogginIn', 'false'); window.location.href = "/login"; }}>
-                Cerrar Sesión
-            </IonButton>
-            </div>
-        </IonToolbar>
-        </IonHeader>
+        <Header Title='Perfil'/>
         <IonContent class="ion-text-center ion-padding">
               <IonTitle className="Auth-form-title title">Actualizar los Datos</IonTitle>
                 <IonItem>
@@ -101,16 +94,7 @@ const Client: React.FC = () => {
 }else{
     return(
     <IonPage>
-        <IonHeader>
-        <IonToolbar>
-            <div className="button-container">
-            <IonTitle className="Ion__Title">Perfil</IonTitle>
-            <IonButton className="Ion__logout" onClick={() => { sessionStorage.setItem('clientLogginIn', 'false'); window.location.href = "/login"; }}>
-                Cerrar Sesión
-            </IonButton>
-            </div>
-        </IonToolbar>
-        </IonHeader>
+        <Header Title='Perfil'/>
         <IonContent class="ion-text-center ion-padding">
         <div style={{ display: 'flex',  flexDirection: 'column', alignItems: 'center', justifyContent: 'center', marginTop: '30px'}}>
             <form className="Auth-form Ion-form" onSubmit={handleSubmit}>

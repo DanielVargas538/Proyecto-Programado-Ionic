@@ -45,6 +45,7 @@ function ApiMethods(url: any) {
         "Content-Type": "application/json",
       }
     }
+    console.log(first_name, last_name, phone, province, canton, district, street, email, password, password_confirmation)
     return axios.post(url, { first_name: first_name, last_name: last_name, phone: phone , province: province, canton: canton, district: district, street: street, email: email, password: password, password_confirmation: password_confirmation}, config)
       .then((response) => {
         return response;
@@ -71,7 +72,7 @@ function ApiMethods(url: any) {
       });
   };
 
-  const putOrderMethod = (id: any,) => {
+  const putOrderStateMethod = (id: any,) => {
     const config = {
         headers: {
             "Accept": "application/json",
@@ -79,6 +80,18 @@ function ApiMethods(url: any) {
         }
     }
     axios.put(`${url}/${id}`, {state: 3}, config)
+        .then((response) => { return response.data })
+        .catch((err) => { setError(err) })
+  }
+
+  const putOrderMethod = async (id: any, dish_id: any, quantity: any,) => {
+    const config = {
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        }
+    }
+    axios.put(`${url}/${id}`, {state: 0, dish_id: dish_id, quantity: quantity }, config)
         .then((response) => { return response.data })
         .catch((err) => { setError(err) })
   }
@@ -99,7 +112,7 @@ function ApiMethods(url: any) {
 
 
 
-  return { data, loading, error, postLoginMethod, getLoginMethod, postOrderMethod, putOrderMethod, putClientMethod };
+  return { data, loading, error, postLoginMethod, getLoginMethod, postOrderMethod, putOrderMethod, putClientMethod, putOrderStateMethod };
 }
 
 export default ApiMethods; 
