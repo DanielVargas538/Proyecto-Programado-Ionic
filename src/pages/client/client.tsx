@@ -197,6 +197,7 @@ const Client: React.FC = () => {
                 placeholder="Ingrese una contraseña"
                 onIonChange={(e) => setPassword(e.detail.value!)}
                 required  
+                minlength={6}
                 />
             </IonItem>
             <IonItem>
@@ -206,6 +207,7 @@ const Client: React.FC = () => {
                 placeholder="Repita la contraseña"
                 onIonChange={(e) => setPasswordConfirmation(e.detail.value!)}
                 required  
+                minlength={6}
                 />
             </IonItem>
                 <IonButton type="submit" className="btn-primary">

@@ -152,7 +152,8 @@ const Registration: React.FC = () => {
                   placeholder="Ingrese una contraseña"
                   value={password}
                   onIonChange={(e) => setPassword(e.detail.value!)}
-                  required  
+                  required
+                  minlength={6}  
                 />
               </IonItem>
               <IonItem>
@@ -162,7 +163,8 @@ const Registration: React.FC = () => {
                   placeholder="Ingrese una contraseña"
                   value={password_confirmation}
                   onIonChange={(e) => setPasswordConfirmation(e.detail.value!)}
-                  required  
+                  required 
+                  minlength={6} 
                 />
               </IonItem>
                 <IonButton type="submit" className="btn-primary">
