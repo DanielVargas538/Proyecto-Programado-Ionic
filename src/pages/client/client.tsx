@@ -154,7 +154,7 @@ const Client: React.FC = () => {
                 <IonLabel position='floating'>Cantón</IonLabel>
                 <IonInput
                     type="text"
-                    placeholder="Ingrese la provincia de residencia"
+                    placeholder="Ingrese la cantón de residencia"
                     value={canton}
                     onIonChange={(e) => setCanton(e.detail.value!)}
                     required  
@@ -164,7 +164,7 @@ const Client: React.FC = () => {
                 <IonLabel position='floating'>Distrito</IonLabel>
                 <IonInput
                     type="text"
-                    placeholder="Ingrese la provincia de residencia"
+                    placeholder="Ingrese la distrito de residencia"
                     value={district}
                     onIonChange={(e) => setDistrict(e.detail.value!)}
                     required  
@@ -174,7 +174,7 @@ const Client: React.FC = () => {
                 <IonLabel position='floating'>Calle</IonLabel>
                 <IonInput
                     type="text"
-                    placeholder="Ingrese la provincia de residencia"
+                    placeholder="Ingrese la calle de residencia"
                     value={street}
                     onIonChange={(e) => setStreet(e.detail.value!)}
                     required  
@@ -203,7 +203,7 @@ const Client: React.FC = () => {
                 <IonLabel position='floating'>Confirmar Contraseña</IonLabel>
                 <IonInput
                 type="password"
-                placeholder="Ingrese una contraseña"
+                placeholder="Repita la contraseña"
                 onIonChange={(e) => setPasswordConfirmation(e.detail.value!)}
                 required  
                 />

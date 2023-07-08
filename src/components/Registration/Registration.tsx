@@ -69,7 +69,7 @@ const Registration: React.FC = () => {
                     <IonLabel position='floating'>Nombre</IonLabel>
                     <IonInput
                       type="text"
-                      placeholder="Ingrese su Nombre"
+                      placeholder="Ingrese su nombre"
                       value={first_name}
                       onIonChange={(e) => setFirstName(e.detail.value!)}
                       required  
@@ -79,7 +79,7 @@ const Registration: React.FC = () => {
                   <IonLabel position='floating'>Apellidos</IonLabel>
                   <IonInput
                     type="text"
-                    placeholder="Ingrese sus Apellidos"
+                    placeholder="Ingrese sus apellidos"
                     value={last_name}
                     onIonChange={(e) => setLastName(e.detail.value!)}
                     required  
@@ -109,7 +109,7 @@ const Registration: React.FC = () => {
                   <IonLabel position='floating'>Cantón</IonLabel>
                   <IonInput
                     type="text"
-                    placeholder="Ingrese la provincia de residencia"
+                    placeholder="Ingrese la canton de residencia"
                     value={canton}
                     onIonChange={(e) => setCanton(e.detail.value!)}
                     required  
@@ -119,7 +119,7 @@ const Registration: React.FC = () => {
                   <IonLabel position='floating'>Distrito</IonLabel>
                   <IonInput
                     type="text"
-                    placeholder="Ingrese la provincia de residencia"
+                    placeholder="Ingrese la distrito de residencia"
                     value={district}
                     onIonChange={(e) => setDistrict(e.detail.value!)}
                     required  
@@ -129,7 +129,7 @@ const Registration: React.FC = () => {
                   <IonLabel position='floating'>Calle</IonLabel>
                   <IonInput
                     type="text"
-                    placeholder="Ingrese la provincia de residencia"
+                    placeholder="Ingrese la calle de residencia"
                     value={street}
                     onIonChange={(e) => setStreet(e.detail.value!)}
                     required  

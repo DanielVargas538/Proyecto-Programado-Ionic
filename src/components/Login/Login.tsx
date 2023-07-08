@@ -62,6 +62,7 @@ const Login: React.FC = () =>{
             <IonLabel position="floating">Contraseña</IonLabel>
             <IonInput
               type="password"
+              placeholder="Ingrese su Contraseña"
               value={password}
               onIonChange={(e) => setPassword(e.detail.value!)}
               required
